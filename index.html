@@ -14,7 +14,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark navbar-dark">
             <div class="container">
               <a class="navbar-brand" href="index.html">Crunchy</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,95 +33,12 @@
             </div>
           </nav>
     </header>
-    <main class="container">
-        <h1 class="display-4 text-center">Administrador de series</h1>
-        <hr>
-        <section class="d-flex">
-            <p class="mb-0">Opciones: </p>
-            <button class="btn btn-primary btn-sm ms-3 ">Agregar</button>
-        </section>
-        <section class="mt-5">
-            <h2 class="display-6">Lista de series</h2>
-            <hr>
-            <article class="table-responsive">
-                <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">Cod.</th>
-                        <th scope="col">Titulo</th>
-                        <th scope="col">Descripcion</th>
-                        <th scope="col">Imagen</th>
-                        <th scope="col">Genero</th>
-                        <th scope="col">Acciones</th>
-                      </tr>
-                    </thead>
-                    <tbody id="listaSeries">
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Robotech</td>
-                        <td>Lorem ipsum dolor, sit amet consectetur</td>
-                        <td>http://</td>
-                        <td>Accion</td>
-                        <td class="d-flex">
-                            <button class="btn btn-warning">EDIT</button>
-                            <button class="btn btn-danger">DEL</button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-            </article>
-        </section>
+    <main class="container text-center">
+      <h1>Principal</h1>
     </main>
-
-    <!-- modal para administrar series -->
-    <div class="modal fade" id="modalSerie" tabindex="-1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Modal title</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="formSerie">
-                    <div class="mb-3">
-                        <label for="">Codigo</label>
-                        <input id='codigo' type="text" class="form-control" placeholder="123">
-                    </div>
-                    <div class="mb-3">
-                        <label for="">Titulo</label>
-                        <input id='titulo' type="text" class="form-control" placeholder="Robotech" minlenght="2" maxlength="50">
-                    </div>
-                    <div class="mb-3">
-                        <label for="">Titulo</label>
-                        <textarea id="descripcion" class="form-control" cols="30" rows="4" placeholder="EJ: xxx"></textarea>
-                        <input id='titulo' type="text" class="form-control" placeholder="Robotech" minlenght="2" maxlength="50">
-                    </div>
-                    <div class="mb-3">
-                        <label for="">Imagen</label>
-                        <input id='imagen' type="text" class="form-control" placeholder="link..." minlenght="2" maxlength="120">
-                    </div>
-                    <div class="mb-3">
-                        <label for="">Genero</label>
-                        <!-- TODO: usar select -->
-                        <select id="genero" class="form-control">
-                            <option value="">Seleccione una opcion</option>
-                            <option value="accion">Accion</option>
-                            <option value="drama">Drama</option>
-                            <option value="comedia">Comedia</option>
-                            <option value="aventura">Aventura</option>
-                        </select>
-                    </div>
-                    <button class="btn btn-primary">Enviar</button>
-                </form>
-                        </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    <footer class="bg-dark text-light py-4 text-center">&copy;Todos los derechos reservados</footer>
+    <footer class="bg-dark text-light py-4 text-center">
+      <p>&copy;Todos los derechos reservados</p>
+    </footer>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/app.js" type="module"></script>
 </body>
