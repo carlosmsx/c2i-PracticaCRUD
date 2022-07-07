@@ -1,5 +1,3 @@
-console.log("desde admin")
-
 import {Serie} from './serieClass.js';
 
 let nuevaSerie = new Serie("123", "tit", "desc", "desc", "genero")
