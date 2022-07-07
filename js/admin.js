@@ -41,15 +41,17 @@ formulario.addEventListener('submit', crearSerie)
 function crearSerie(e)
 {
     e.preventDefault();
-    //volver a validar todos los campos
+    //TODO: volver a validar todos los campos
     let nuevaSerie = new Serie(codigo.value, titulo.value, descripcion.value, imagen.value, genero.value )
     vectorSeries.push(nuevaSerie)
     console.log(vectorSeries)
     //limpiar el formulario
     limpiarFormulario()
+    //guardar la lista de series
 }
 
 function limpiarFormulario()
 {
     formulario.reset(); //solo resetea el value de los campos del formulario
+    //TODO: limpiar clases form-control para quitar validaciones
 }
