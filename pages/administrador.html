@@ -94,7 +94,7 @@
                         <form id="formSerie">
                             <div class="mb-3">
                                 <label for="codigo">Codigo</label>
-                                <input id="codigo" type="text" class="form-control" placeholder="123" maxlength="5" minlength="1"/>
+                                <input id="codigo" type="text" class="form-control" placeholder="123" maxlength="5" minlength="1" required/>
                             </div>
                             <div class="mb-3">
                                 <label for="titulo">Titulo</label>
@@ -105,11 +105,12 @@
                                     placeholder="Robotech"
                                     minlenght="2"
                                     maxlength="50"
+                                    required
                                 />
                             </div>
                             <div class="mb-3">
                                 <label for="descripcion">Descripcion</label>
-                                <textarea id="descripcion" class="form-control" rows="4" placeholder="Lorem, ipsum dolor sit amet consectetur adipisicing." maxlength="200" minlength="2"></textarea>
+                                <textarea id="descripcion" class="form-control" rows="4" placeholder="Lorem, ipsum dolor sit amet consectetur adipisicing." maxlength="200" minlength="2" required></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="imagen">Imagen</label>
@@ -120,11 +121,12 @@
                                     placeholder="link..."
                                     minlenght="2"
                                     maxlength="120"
+                                    required
                                 />
                             </div>
                             <div class="mb-3">
                                 <label for="genero">Genero</label>
-                                <select id="genero" class="form-control">
+                                <select id="genero" class="form-control" required>
                                     <option value="">Seleccione una opcion</option>
                                     <option value="accion">Accion</option>
                                     <option value="drama">Drama</option>

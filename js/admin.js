@@ -1,4 +1,5 @@
 import {Serie} from './serieClass.js';
+import { campoRequerido, cantidadCaracteres } from "./validaciones.js";
 
 let nuevaSerie = new Serie("123", "tit", "desc", "desc", "genero")
 
@@ -17,7 +18,23 @@ let genero = document.getElementById("genero")
 //ya fueron chequeados todos uno por uno... console.log(codigo)
 
 let formulario = document.getElementById("formSerie")
-//TODO: agregar validaciones
+
+//validaciones
+codigo.addEventListener("blur", ()=>{ campoRequerido(codigo); });
+codigo.addEventListener("keyDown", ()=>{ cantidadCaracteres(codigo, 1, 5); });
+
+titulo.addEventListener("blur", ()=>{ campoRequerido(titulo); });
+titulo.addEventListener("keyDown", ()=>{ cantidadCaracteres(titulo, 2, 50); });
+
+descripcion.addEventListener("blur", ()=>{ campoRequerido(descripcion); });
+descripcion.addEventListener("keyDown", ()=>{ cantidadCaracteres(descripcion, 2, 200); });
+
+imagen.addEventListener("blur", ()=>{ campoRequerido(imagen); });
+imagen.addEventListener("keyDown", ()=>{ cantidadCaracteres(imagen, 2, 120); });
+
+genero.addEventListener("blur", ()=>{ campoRequerido(genero); });
+genero.addEventListener("change", ()=>{ campoRequerido(genero, 2, 200); });
+
 
 formulario.addEventListener('submit', crearSerie)
 
