@@ -6,8 +6,8 @@ let nuevaSerie = new Serie("123", "tit", "desc", "desc", "genero")
 console.log(nuevaSerie)
 
 //si hay algo en localstorage traer los datos, si no crear el arreglo vacio
-let vectorSeries = JSON.parse(localStorage.getItem("vectorSeriesKey")) || [] //se usa el operador OR para cuando el primer valor sea nulo use el segundo valor
-
+let vectorSeries = JSON.parse(localStorage.getItem("vectorSeriesKey")) || []; //se usa el operador OR para cuando el primer valor sea nulo use el segundo valor
+console.log(vectorSeries)
 //traemos los elementos que nos interesen
 
 let codigo = document.getElementById("codigo")
@@ -21,6 +21,7 @@ let genero = document.getElementById("genero")
 let formulario = document.getElementById("formSerie")
 const modalAdminSerie = new bootstrap.Modal(document.getElementById("modalSerie"))
 let btnCrearSerie = document.getElementById("btnCrearSerie")
+let tablaSeries = document.getElementById("listaSeries")
 
 btnCrearSerie.addEventListener("click", ()=>{
     limpiarFormulario()
@@ -46,6 +47,8 @@ genero.addEventListener("change", ()=>{ campoRequerido(genero, 2, 200); });
 
 formulario.addEventListener('submit', crearSerie)
 
+cargaInicial()
+
 function crearSerie(e)
 {
     e.preventDefault();
@@ -60,11 +63,8 @@ function crearSerie(e)
     //cerrar modal
     modalAdminSerie.hide()
     //mostrar el ok
-    Swal.fire(
-        'Serie creada',
-        'La serie fue creada correctamente',
-        'success'
-    )
+    Swal.fire('Serie creada', 'La serie fue creada correctamente', 'success')
+    crearFila(nuevaSerie)
 }
 
 function limpiarFormulario()
@@ -78,4 +78,33 @@ function guardarListaSeries()
 {
     localStorage.setItem('vectorSeriesKey', JSON.stringify(vectorSeries))
     
+}
+
+function cargaInicial()
+{
+    if (vectorSeries.length > 0)
+    {
+        vectorSeries.forEach((item)=>{
+            crearFila(item)
+        })
+    }
+}
+
+function crearFila(serie)
+{
+    console.log(serie.codigo)
+    let newRow = 
+    `<tr>
+    <th scope="row">${serie._codigo }</th>
+    <td>${serie._titulo}</td>
+    <td><p>${serie._descripcion}</p></td>
+    <td>${serie._imagen}</td>
+    <td>Accion</td>
+    <td class="d-flex">
+        <button class="btn btn-warning me-1"><i class="bi bi-pencil-square"></i></button>
+        <button class="btn btn-danger"><i class="bi bi-x-square"></i></button>
+    </td>
+    </tr>`
+
+    tablaSeries.innerHTML += newRow
 }
