@@ -20,7 +20,12 @@ let genero = document.getElementById("genero")
 
 let formulario = document.getElementById("formSerie")
 const modalAdminSerie = new bootstrap.Modal(document.getElementById("modalSerie"))
-//console.log(modalAdminSerie)
+let btnCrearSerie = document.getElementById("btnCrearSerie")
+
+btnCrearSerie.addEventListener("click", ()=>{
+    limpiarFormulario()
+    modalAdminSerie.show()
+})
 
 //validaciones
 codigo.addEventListener("blur", ()=>{ campoRequerido(codigo); });
@@ -52,6 +57,8 @@ function crearSerie(e)
     limpiarFormulario()
     //guardar la lista de series
     guardarListaSeries()
+    //cerrar modal
+    modalAdminSerie.hide()
 }
 
 function limpiarFormulario()
