@@ -5,7 +5,8 @@ let nuevaSerie = new Serie("123", "tit", "desc", "desc", "genero")
 
 console.log(nuevaSerie)
 
-let vectorSeries = []
+//si hay algo en localstorage traer los datos, si no crear el arreglo vacio
+let vectorSeries = JSON.parse(localStorage.getItem("vectorSeriesKey")) || [] //se usa el operador OR para cuando el primer valor sea nulo use el segundo valor
 
 //traemos los elementos que nos interesen
 
@@ -18,6 +19,8 @@ let genero = document.getElementById("genero")
 //ya fueron chequeados todos uno por uno... console.log(codigo)
 
 let formulario = document.getElementById("formSerie")
+const modalAdminSerie = new bootstrap.Modal(document.getElementById("modalSerie"))
+//console.log(modalAdminSerie)
 
 //validaciones
 codigo.addEventListener("blur", ()=>{ campoRequerido(codigo); });
@@ -48,10 +51,18 @@ function crearSerie(e)
     //limpiar el formulario
     limpiarFormulario()
     //guardar la lista de series
+    guardarListaSeries()
 }
 
 function limpiarFormulario()
 {
     formulario.reset(); //solo resetea el value de los campos del formulario
     //TODO: limpiar clases form-control para quitar validaciones
+    let inputs = formulario.querySelector(".form-control")
+}
+
+function guardarListaSeries()
+{
+    localStorage.setItem('vectorSeriesKey', JSON.stringify(vectorSeries))
+    
 }
