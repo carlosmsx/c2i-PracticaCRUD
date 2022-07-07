@@ -59,6 +59,12 @@ function crearSerie(e)
     guardarListaSeries()
     //cerrar modal
     modalAdminSerie.hide()
+    //mostrar el ok
+    Swal.fire(
+        'Serie creada',
+        'La serie fue creada correctamente',
+        'success'
+    )
 }
 
 function limpiarFormulario()
