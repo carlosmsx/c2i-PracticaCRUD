@@ -4,7 +4,7 @@ let nuevaSerie = new Serie("123", "tit", "desc", "desc", "genero")
 
 console.log(nuevaSerie)
 
-let listaSeries = []
+let vectorSeries = []
 
 //traemos los elementos que nos interesen
 
@@ -24,10 +24,10 @@ formulario.addEventListener('submit', crearSerie)
 function crearSerie(e)
 {
     e.preventDefault();
-    console.log('desde crear serie')
     //volver a validar todos los campos
     let nuevaSerie = new Serie(codigo.value, titulo.value, descripcion.value, imagen.value, genero.value )
-    listaSeries.push(nuevaSerie)
+    vectorSeries.push(nuevaSerie)
+    console.log(vectorSeries)
     //limpiar el formulario
     limpiarFormulario()
 }
