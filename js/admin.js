@@ -108,15 +108,15 @@ function crearFila(serie)
     <td>${serie._imagen}</td>
     <td>Accion</td>
     <td class="d-flex">
-        <button class="btn btn-warning me-1"><i class="bi bi-pencil-square"></i></button>
-        <button class="btn btn-danger" onclick="borrarProducto('${serie._codigo}')"><i class="bi bi-x-square"></i></button>
+        <button class="btn btn-warning me-1" onclick="editarSerie('${serie._codigo}')"><i class="bi bi-pencil-square"></i></button>
+        <button class="btn btn-danger" onclick="borrarSerie('${serie._codigo}')"><i class="bi bi-x-square"></i></button>
     </td>
     </tr>`
 
     tablaSeries.innerHTML += newRow
 }
 
-window.borrarProducto = function(codigo)
+window.borrarSerie = function(codigo)
 {
     Swal.fire({
         title: 'Está seguro de eliminar la serie?',
@@ -146,4 +146,15 @@ window.borrarProducto = function(codigo)
 function borrarTabla()
 {
     tablaSeries.innerHTML = "";
+}
+
+window.editarSerie = function(codigoSerie)
+{
+    let serieEditada = vectorSeries.find((serie)=>{ return serie._codigo == codigoSerie; });
+
+    codigo.value = serieEditada._codigo;
+    descripcion.value = serieEditada._descripcion;
+    imagen.value = serieEditada._imagen;
+    titulo.value = serieEditada._titulo;
+    modalAdminSerie.show();
 }
