@@ -26,9 +26,9 @@ let tablaSeries = document.getElementById("listaSeries")
 
 btnCrearSerie.addEventListener("click", ()=>{
     limpiarFormulario()
-    modalAdminSerie.show()
     //generar codigo unico 
     codigo.value = getUniqueId();
+    modalAdminSerie.show()
 })
 
 //validaciones
