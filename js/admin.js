@@ -129,16 +129,21 @@ window.borrarProducto = function(codigo)
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            //TODO: borrar de vectorSeries y de localStorage
-            
-            //TODO: acutalizar la tabla
-            //TODO: mostrar cartel de operacion exitosa
-
+            let vectorSeriesNuevo = vectorSeries.filter((serie)=>{ return serie._codigo != codigo; });
+            vectorSeries = vectorSeriesNuevo;
+            guardarListaSeries();
+            borrarTabla();
+            cargaInicial();
             Swal.fire(
-            'Serie eliminada!',
-            'La serie fue eliminada.',
-            'success'
+                'Serie eliminada!',
+                'La serie fue eliminada.',
+                'success'
             )
         }
     })
+}
+
+function borrarTabla()
+{
+    tablaSeries.innerHTML = "";
 }
