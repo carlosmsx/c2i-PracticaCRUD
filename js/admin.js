@@ -27,6 +27,8 @@ let tablaSeries = document.getElementById("listaSeries")
 btnCrearSerie.addEventListener("click", ()=>{
     limpiarFormulario()
     modalAdminSerie.show()
+    //generar codigo unico 
+    codigo.value = getUniqueId();
 })
 
 //validaciones
@@ -71,9 +73,6 @@ function crearSerie(e)
 function limpiarFormulario()
 {
     formulario.reset(); //solo resetea el value de los campos del formulario
-
-    //generar codigo unico 
-    codigo.value = getUniqueId();
 
     //quitar clases is-valid/is-invalid
     let inputs = formulario.querySelectorAll(".form-control")
