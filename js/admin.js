@@ -1,5 +1,6 @@
 import {Serie} from './serieClass.js';
 import { campoRequerido, cantidadCaracteres } from "./validaciones.js";
+import { getUniqueId } from './guid.js';
 
 let nuevaSerie = new Serie("123", "tit", "desc", "desc", "genero")
 
@@ -70,8 +71,15 @@ function crearSerie(e)
 function limpiarFormulario()
 {
     formulario.reset(); //solo resetea el value de los campos del formulario
-    //TODO: limpiar clases form-control para quitar validaciones
-    let inputs = formulario.querySelector(".form-control")
+
+    //generar codigo unico 
+    codigo.value = getUniqueId();
+
+    //quitar clases is-valid/is-invalid
+    let inputs = formulario.querySelectorAll(".form-control")
+    inputs.forEach((item)=>{
+        item.className = "form-control";
+    })
 }
 
 function guardarListaSeries()

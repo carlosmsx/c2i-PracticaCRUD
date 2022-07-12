@@ -8,11 +8,11 @@ let prevId = -1;
 // sirve muy bien siempre y cuando los IDs se generen con un espacio de tiempo de un milisegundo entre llamadas a la funcion.
 export function getUniqueId()
 {
-    let newId = now.getTime(); // milisegundos desde 1970
+    let newId = new Date().getTime(); // milisegundos desde 1970
 
-    if (newId === prevId) // verifico que el nuevo ID no sea igual al anterior, caso contrario uso el segundo metodo para genere un ID
+    if (newId === prevId) // verifico que el nuevo ID no sea igual al anterior, caso contrario uso el segundo metodo para que genere un ID
     {
-        return getUniqueId2(); 
+        newId = getUniqueId2(); 
     }
     prevId=newId;
 
