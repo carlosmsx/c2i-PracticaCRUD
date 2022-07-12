@@ -109,9 +109,36 @@ function crearFila(serie)
     <td>Accion</td>
     <td class="d-flex">
         <button class="btn btn-warning me-1"><i class="bi bi-pencil-square"></i></button>
-        <button class="btn btn-danger"><i class="bi bi-x-square"></i></button>
+        <button class="btn btn-danger" onclick="borrarProducto('${serie._codigo}')"><i class="bi bi-x-square"></i></button>
     </td>
     </tr>`
 
     tablaSeries.innerHTML += newRow
+}
+
+window.borrarProducto = function(codigo)
+{
+    Swal.fire({
+        title: 'Está seguro de eliminar la serie?',
+        text: "Tenga en cuenta que no puede revertir este paso",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Borrar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            //TODO: borrar de vectorSeries y de localStorage
+            
+            //TODO: acutalizar la tabla
+            //TODO: mostrar cartel de operacion exitosa
+
+            Swal.fire(
+            'Serie eliminada!',
+            'La serie fue eliminada.',
+            'success'
+            )
+        }
+    })
 }
