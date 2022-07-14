@@ -19,6 +19,7 @@ let genero = document.getElementById("genero")
 
 //ya fueron chequeados todos uno por uno... console.log(codigo)
 
+let serieExistente = false; //controla el comportamiento del boton submit del formulario. True: modificaSerie. False: creaSerie
 let formulario = document.getElementById("formSerie")
 const modalAdminSerie = new bootstrap.Modal(document.getElementById("modalSerie"))
 let btnCrearSerie = document.getElementById("btnCrearSerie")
@@ -28,6 +29,7 @@ btnCrearSerie.addEventListener("click", ()=>{
     limpiarFormulario()
     //generar codigo unico 
     codigo.value = getUniqueId();
+    serieExistente = false;
     modalAdminSerie.show()
 })
 
@@ -48,13 +50,25 @@ genero.addEventListener("blur", ()=>{ campoRequerido(genero); });
 genero.addEventListener("change", ()=>{ campoRequerido(genero, 2, 200); });
 
 
-formulario.addEventListener('submit', crearSerie)
+formulario.addEventListener('submit', guardarSerie)
 
 cargaInicial()
 
-function crearSerie(e)
+function guardarSerie(e)
 {
     e.preventDefault();
+    if (serieExistente) 
+    {
+        console.log('modifica');
+    }
+    else
+    {
+        console.log('crea');
+    }
+}
+
+function crearSerie()
+{
     //TODO: volver a validar todos los campos
     let nuevaSerie = new Serie(codigo.value, titulo.value, descripcion.value, imagen.value, genero.value )
     vectorSeries.push(nuevaSerie)
@@ -156,5 +170,7 @@ window.editarSerie = function(codigoSerie)
     descripcion.value = serieEditada._descripcion;
     imagen.value = serieEditada._imagen;
     titulo.value = serieEditada._titulo;
+
+    serieExistente = true;
     modalAdminSerie.show();
 }
