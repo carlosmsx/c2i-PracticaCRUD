@@ -2,15 +2,10 @@ import {Serie} from './serieClass.js';
 import { campoRequerido, cantidadCaracteres } from "./validaciones.js";
 import { getUniqueId } from './guid.js';
 
-let nuevaSerie = new Serie("123", "tit", "desc", "desc", "genero")
-
-console.log(nuevaSerie)
-
 //si hay algo en localstorage traer los datos, si no crear el arreglo vacio
 let vectorSeries = JSON.parse(localStorage.getItem("vectorSeriesKey")) || []; //se usa el operador OR para cuando el primer valor sea nulo use el segundo valor
-console.log(vectorSeries)
-//traemos los elementos que nos interesen
 
+//traemos los elementos que nos interesen
 let codigo = document.getElementById("codigo")
 let titulo = document.getElementById("titulo")
 let descripcion = document.getElementById("descripcion")
@@ -57,31 +52,31 @@ cargaInicial()
 function guardarSerie(e)
 {
     e.preventDefault();
+    //TODO: volver a validar todos los campos
     if (serieExistente) 
     {
-        console.log('modifica');
+        guardarEdicionSerie();
     }
     else
     {
-        console.log('crea');
+        crearSerie();
     }
 }
 
 function crearSerie()
 {
-    //TODO: volver a validar todos los campos
     let nuevaSerie = new Serie(codigo.value, titulo.value, descripcion.value, imagen.value, genero.value )
     vectorSeries.push(nuevaSerie)
-    console.log(vectorSeries)
     //limpiar el formulario
     limpiarFormulario()
     //guardar la lista de series
     guardarListaSeries()
     //cerrar modal
     modalAdminSerie.hide()
+    //agregar en la tabla
+    crearFila(nuevaSerie)
     //mostrar el ok
     Swal.fire('Serie creada', 'La serie fue creada correctamente', 'success')
-    crearFila(nuevaSerie)
 }
 
 function limpiarFormulario()
@@ -113,7 +108,6 @@ function cargaInicial()
 
 function crearFila(serie)
 {
-    console.log(serie.codigo)
     let newRow = 
     `<tr>
     <th scope="row">${serie._codigo }</th>
@@ -146,8 +140,7 @@ window.borrarSerie = function(codigo)
             let vectorSeriesNuevo = vectorSeries.filter((serie)=>{ return serie._codigo != codigo; });
             vectorSeries = vectorSeriesNuevo;
             guardarListaSeries();
-            borrarTabla();
-            cargaInicial();
+            actualizarTabla();
             Swal.fire(
                 'Serie eliminada!',
                 'La serie fue eliminada.',
@@ -157,9 +150,10 @@ window.borrarSerie = function(codigo)
     })
 }
 
-function borrarTabla()
+function actualizarTabla()
 {
     tablaSeries.innerHTML = "";
+    cargaInicial();
 }
 
 window.editarSerie = function(codigoSerie)
@@ -170,7 +164,26 @@ window.editarSerie = function(codigoSerie)
     descripcion.value = serieEditada._descripcion;
     imagen.value = serieEditada._imagen;
     titulo.value = serieEditada._titulo;
+    genero.value = serieEditada._genero;
 
     serieExistente = true;
     modalAdminSerie.show();
+}
+
+function guardarEdicionSerie()
+{
+    let index = vectorSeries.findIndex((serie)=>{return serie._codigo == codigo.value; });
+    //actualizar elemento del vector
+    vectorSeries[index]._descripcion = descripcion.value;
+    vectorSeries[index]._imagen = imagen.value;
+    vectorSeries[index]._titulo = titulo.value;
+    vectorSeries[index]._genero = genero.value;
+    //guardar en localstorage
+    guardarListaSeries();
+    //actualizar la tabla
+    actualizarTabla();
+    //indicar al usuario
+    Swal.fire('Serie actualizada', 'La serie fue actualizada correctamente', 'success')
+    //cerrar ventana modal
+    modalAdminSerie.hide();
 }
