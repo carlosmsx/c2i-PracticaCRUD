@@ -6,7 +6,6 @@ import { getUniqueId } from './guid.js';
 let vectorSeries = JSON.parse(localStorage.getItem("vectorSeriesKey")) || []; //se usa el operador OR para cuando el primer valor sea nulo use el segundo valor
 
 //traemos los elementos que nos interesen
-
 let codigo = document.getElementById("codigo")
 let titulo = document.getElementById("titulo")
 let descripcion = document.getElementById("descripcion")
@@ -15,6 +14,7 @@ let genero = document.getElementById("genero")
 
 //ya fueron chequeados todos uno por uno... console.log(codigo)
 
+let serieExistente = false; //controla el comportamiento del boton submit del formulario. True: modificaSerie. False: creaSerie
 let formulario = document.getElementById("formSerie")
 const modalAdminSerie = new bootstrap.Modal(document.getElementById("modalSerie"))
 let btnCrearSerie = document.getElementById("btnCrearSerie")
@@ -24,6 +24,7 @@ btnCrearSerie.addEventListener("click", ()=>{
     limpiarFormulario()
     //generar codigo unico 
     codigo.value = getUniqueId();
+    serieExistente = false;
     modalAdminSerie.show()
 })
 
@@ -44,26 +45,38 @@ genero.addEventListener("blur", ()=>{ campoRequerido(genero); });
 genero.addEventListener("change", ()=>{ campoRequerido(genero, 2, 200); });
 
 
-formulario.addEventListener('submit', crearSerie)
+formulario.addEventListener('submit', guardarSerie)
 
 cargaInicial()
 
-function crearSerie(e)
+function guardarSerie(e)
 {
     e.preventDefault();
     //TODO: volver a validar todos los campos
+    if (serieExistente) 
+    {
+        guardarEdicionSerie();
+    }
+    else
+    {
+        crearSerie();
+    }
+}
+
+function crearSerie()
+{
     let nuevaSerie = new Serie(codigo.value, titulo.value, descripcion.value, imagen.value, genero.value )
     vectorSeries.push(nuevaSerie)
-    console.log(vectorSeries)
     //limpiar el formulario
     limpiarFormulario()
     //guardar la lista de series
     guardarListaSeries()
     //cerrar modal
     modalAdminSerie.hide()
+    //agregar en la tabla
+    crearFila(nuevaSerie)
     //mostrar el ok
     Swal.fire('Serie creada', 'La serie fue creada correctamente', 'success')
-    crearFila(nuevaSerie)
 }
 
 function limpiarFormulario()
@@ -95,7 +108,6 @@ function cargaInicial()
 
 function crearFila(serie)
 {
-    console.log(serie.codigo)
     let newRow = 
     `<tr>
     <th scope="row">${serie._codigo }</th>
@@ -104,15 +116,15 @@ function crearFila(serie)
     <td>${serie._imagen}</td>
     <td>Accion</td>
     <td class="d-flex">
-        <button class="btn btn-warning me-1"><i class="bi bi-pencil-square"></i></button>
-        <button class="btn btn-danger" onclick="borrarProducto('${serie._codigo}')"><i class="bi bi-x-square"></i></button>
+        <button class="btn btn-warning me-1" onclick="editarSerie('${serie._codigo}')"><i class="bi bi-pencil-square"></i></button>
+        <button class="btn btn-danger" onclick="borrarSerie('${serie._codigo}')"><i class="bi bi-x-square"></i></button>
     </td>
     </tr>`
 
     tablaSeries.innerHTML += newRow
 }
 
-window.borrarProducto = function(codigo)
+window.borrarSerie = function(codigo)
 {
     Swal.fire({
         title: 'Está seguro de eliminar la serie?',
@@ -128,8 +140,7 @@ window.borrarProducto = function(codigo)
             let vectorSeriesNuevo = vectorSeries.filter((serie)=>{ return serie._codigo != codigo; });
             vectorSeries = vectorSeriesNuevo;
             guardarListaSeries();
-            borrarTabla();
-            cargaInicial();
+            actualizarTabla();
             Swal.fire(
                 'Serie eliminada!',
                 'La serie fue eliminada.',
@@ -139,7 +150,40 @@ window.borrarProducto = function(codigo)
     })
 }
 
-function borrarTabla()
+function actualizarTabla()
 {
     tablaSeries.innerHTML = "";
+    cargaInicial();
+}
+
+window.editarSerie = function(codigoSerie)
+{
+    let serieEditada = vectorSeries.find((serie)=>{ return serie._codigo == codigoSerie; });
+
+    codigo.value = serieEditada._codigo;
+    descripcion.value = serieEditada._descripcion;
+    imagen.value = serieEditada._imagen;
+    titulo.value = serieEditada._titulo;
+    genero.value = serieEditada._genero;
+
+    serieExistente = true;
+    modalAdminSerie.show();
+}
+
+function guardarEdicionSerie()
+{
+    let index = vectorSeries.findIndex((serie)=>{return serie._codigo == codigo.value; });
+    //actualizar elemento del vector
+    vectorSeries[index]._descripcion = descripcion.value;
+    vectorSeries[index]._imagen = imagen.value;
+    vectorSeries[index]._titulo = titulo.value;
+    vectorSeries[index]._genero = genero.value;
+    //guardar en localstorage
+    guardarListaSeries();
+    //actualizar la tabla
+    actualizarTabla();
+    //indicar al usuario
+    Swal.fire('Serie actualizada', 'La serie fue actualizada correctamente', 'success')
+    //cerrar ventana modal
+    modalAdminSerie.hide();
 }
