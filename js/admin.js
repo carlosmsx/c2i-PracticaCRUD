@@ -2,13 +2,9 @@ import {Serie} from './serieClass.js';
 import { campoRequerido, cantidadCaracteres } from "./validaciones.js";
 import { getUniqueId } from './guid.js';
 
-let nuevaSerie = new Serie("123", "tit", "desc", "desc", "genero")
-
-console.log(nuevaSerie)
-
 //si hay algo en localstorage traer los datos, si no crear el arreglo vacio
 let vectorSeries = JSON.parse(localStorage.getItem("vectorSeriesKey")) || []; //se usa el operador OR para cuando el primer valor sea nulo use el segundo valor
-console.log(vectorSeries)
+
 //traemos los elementos que nos interesen
 
 let codigo = document.getElementById("codigo")
