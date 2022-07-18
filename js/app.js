@@ -14,8 +14,13 @@ function dibujarColumna(serie)
       <img src="${serie._imagen}" class="card-img-top" alt="${serie._titulo}">
       <div class="card-body">
         <h5 class="card-title">${serie._titulo}</h5>
-        <a href="#" class="btn btn-primary">ver detalle</a>
+        <button class="btn btn-primary" onclick="verDetalle(${serie._codigo})">ver detalle</button>
       </div>
     </div>          
   </article>`;
+}
+
+window.verDetalle = (codigo)=>
+{
+    window.location.href = window.location.origin + "/pages/detalle.html"
 }
