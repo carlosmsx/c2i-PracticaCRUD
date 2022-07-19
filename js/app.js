@@ -22,5 +22,5 @@ function dibujarColumna(serie)
 
 window.verDetalle = (codigo)=>
 {
-    window.location.href = window.location.origin + "/pages/detalle.html"
+    window.location.href = window.location.origin + `/pages/detalle.html?codigo=${codigo}`
 }
